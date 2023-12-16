@@ -22,16 +22,22 @@
         <form action="#" id="form" class="hidden-form block-form">
           <div class="form-group">
             <label
-              >img<input name="imgUrl" type="text" placeholder="url image"
+              ><span>img url</span
+              ><input name="imgUrl" type="text" placeholder="URL IMAGE"
             /></label>
           </div>
           <div class="form-group">
-            <label> title <input name="title" type="text" /> </label>
+            <label>
+              <span>title</span>
+              <input name="title" type="text" placeholder="TITLE MOVIE" />
+            </label>
           </div>
           <div class="form-group">
-            <label>rating<input name="rating" type="number" /></label>
+            <label
+              ><span>rating</span> <input name="rating" type="number"
+            /></label>
           </div>
-          <input type="submit" value="add" />
+          <input type="submit" value="add" class="add-movie" />
         </form>
       </header>
       <table class="table">
