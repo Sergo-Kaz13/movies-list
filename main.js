@@ -2,8 +2,6 @@
 
 const initialMoviesItems = JSON.parse(localStorage.getItem("listMovie")) || [];
 
-console.log(initialMoviesItems);
-
 const tableBody = document.querySelector(".table_body");
 const formElement = document.querySelector("#form");
 const btnAddMovie = document.querySelector(".btn-add-movie");
@@ -20,6 +18,7 @@ function enterMovies(movies) {
         const tr = document.createElement("tr");
         tr.id = movie.id;
         tr.addEventListener("click", (event) => deleteMovieItem(event));
+        tr.addEventListener("click", (event) => ratingMovie(event));
 
         const imgTd = document.createElement("td");
         const img = document.createElement("img");
@@ -31,8 +30,20 @@ function enterMovies(movies) {
         const titleTd = document.createElement("td");
         titleTd.textContent = `${movie.title}`;
 
+        const ratingUp = document.createElement("span");
+        const ratingDown = document.createElement("span");
+        const ratingData = document.createElement("span");
+
+        ratingUp.classList = "rating-up";
+        ratingUp.textContent = "👍";
+        ratingDown.classList = "rating-down";
+        ratingDown.textContent = "👎";
+        ratingData.classList = "rating-data";
+        ratingData.textContent = `${movie.rating}`;
+
         const ratingTd = document.createElement("td");
-        ratingTd.textContent = `👍${movie.rating} 👎`;
+        ratingTd.classList = "rating-block";
+        ratingTd.append(ratingUp, ratingData, ratingDown);
 
         const btnTd = document.createElement("td");
         const btnDel = document.createElement("button");
@@ -76,17 +87,46 @@ function generatorId() {
 }
 
 function deleteMovieItem(event) {
-  const elementId = event.target.closest("tr").id;
-  const movieIndex = initialMoviesItems.findIndex(
-    (movie) => movie.id === +elementId
-  );
+  if (event.target.tagName === "BUTTON") {
+    const elementId = event.target.closest("tr").id;
+    const movieIndex = initialMoviesItems.findIndex(
+      (movie) => movie.id === +elementId
+    );
 
-  initialMoviesItems.splice(movieIndex, 1);
-  setLocalStorageData(initialMoviesItems);
+    initialMoviesItems.splice(movieIndex, 1);
+    setLocalStorageData(initialMoviesItems);
 
-  enterMovies(initialMoviesItems);
+    enterMovies(initialMoviesItems);
+  }
+}
+
+function ratingMovie(event) {
+  const eventClass = event.target.className;
+  const movieId = event.target.closest("tr").id;
+
+  if (eventClass === "rating-up") {
+    ratingUpdate("up", movieId);
+  } else if (eventClass === "rating-down") {
+    ratingUpdate("down", movieId);
+  }
 }
 
 function setLocalStorageData(data) {
   localStorage.setItem("listMovie", JSON.stringify(data));
+}
+
+function ratingUpdate(operator, idMovie) {
+  initialMoviesItems.map((movie) => {
+    if (movie.id === +idMovie) {
+      if (operator === "up") {
+        movie.rating = +movie.rating + 1;
+        setLocalStorageData(initialMoviesItems);
+        enterMovies(initialMoviesItems);
+      } else if (operator === "down") {
+        movie.rating -= 1;
+        setLocalStorageData(initialMoviesItems);
+        enterMovies(initialMoviesItems);
+      }
+    }
+  });
 }
