@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="./main.js" defer></script>
+    <title>My Movies List</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <h1>My Favorite Movies</h1>
+        <button class="btn-add-movie" type="button">add new movie</button>
+        <form action="#" id="form" class="hidden-form">
+          <div class="form-group">
+            <label
+              >img<input name="imgUrl" type="text" placeholder="url image"
+            /></label>
+          </div>
+          <div class="form-group">
+            <label> title <input name="title" type="text" /> </label>
+          </div>
+          <div class="form-group">
+            <label>rating<input name="rating" type="number" /></label>
+          </div>
+          <input type="submit" value="add" />
+        </form>
+      </header>
+      <table class="table">
+        <thead class="table_header">
+          <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody class="table_body">
+          <tr>
+            <td>
+              <img
+                class="movie_img"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrglP0AHWOkVV_pzjpEgKDD1Z11NlfOLHkdQ&usqp=CAU"
+                alt="Thor"
+              />
+            </td>
+            <td>Thor</td>
+            <td>👍 👎<span>8</span></td>
+            <td><button>X</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
